@@ -1,0 +1,77 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+{% include '_messages.html' %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+<link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+ 
+  <nav class="navbar navbar-inverse navbar-expand-lg navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class = 'goBetDiv'>
+          <a class="navbar-brand" id = "goLogo">Go</a>
+          <a class="navbar-brand" id = "betLogo">Bet</a>
+        </div>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a class="nav-link" href="/terminarz">Nadchodząca kolejka</a></li>
+          <li><a class="nav-link" href="/kupon">Stwórz kupon</a></li>
+          <li><a class="nav-link" href="wyniki">Wyniki meczy</a></li>
+          <li><a class="nav-link " href="/symuluj_kolejke">Symuluj kolejkę</a></li>
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Tabela
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/premier_league">Premier League</a> <br>
+              <a class="dropdown-item" href="/la_liga">La Liga</a> <br>
+              <a class="dropdown-item" href="/serie_a">Serie A</a>
+            </div>
+          </li>
+            <li><a id = "logout" href="{{ url_for('logout') }}">Wyloguj się</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav> 
+
+  <h3 style="text-align: center; margin-top: 30px;">Tabela Serie A po {{kolejka}} kolejce</h3>
+
+  <table class = "table table-striped">
+    <tr>
+        <th>Drużyna</th>
+        <th>Liczba meczy</th>
+        <th>Punkty</th>
+        <th>Wygrane</th>
+        <th>Przegrane</th>
+        <th>Gole zdobyte</th>
+        <th>Gole stracone</th>
+    </tr>
+    {% for team in teams %}
+        <tr>
+            <td>{{team.0}}</td>
+            <td>{{team.1}}</td>
+            <td>{{team.2}}</td>
+            <td>{{team.3}}</td>
+            <td>{{team.4}}</td>
+            <td>{{team.5}}</td>
+            <td>{{team.6}}</td>
+        </tr>
+    {% endfor %}
+  </table>
+  
+{% endblock %}

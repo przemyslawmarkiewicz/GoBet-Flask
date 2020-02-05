@@ -1,0 +1,203 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+{% include '_messages.html' %}
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+<link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/cf5fff4621.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+ 
+  <nav class="navbar navbar-inverse navbar-expand-lg navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class = 'goBetDiv'>
+          <a class="navbar-brand" id = "goLogo">Go</a>
+          <a class="navbar-brand" id = "betLogo">Bet</a>
+        </div>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li><a class="nav-link" href="/terminarz">Nadchodząca kolejka</a></li>
+          <li class="active"><a class="nav-link" href="#">Stwórz kupon</a></li>
+          <li><a class="nav-link" href="/wyniki">Wyniki meczy</a></li >
+          <li><a class="nav-link " href="/symuluj_kolejke">Symuluj kolejkę</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Tabela
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/premier_league">Premier League</a> <br>
+              <a class="dropdown-item" href="/la_liga">La Liga</a> <br>
+              <a class="dropdown-item" href="/serie_a">Serie A</a>
+            </div>
+          </li>
+            <li><a id = "logout" href="{{ url_for('logout') }}">Wyloguj się</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav> 
+
+<div id = 'content'>
+    <div id = "kuponLeft">
+       
+        <h2 style = "margin:auto; text-align: center; margin-top: 50px;"> Stwórz kupon na mecze {{nastepna_kolejka}} kolejki:</h2>
+      <br> <br>
+      <header style="text-align: center; margin:auto; font-size: large; font-weight: bold;">Premier league</header>
+      <table class = "table table-striped" id = "kupon">
+        <tr>
+          <th style ="width: 35%">Gospodarze</th>
+          <th style ="width: 10%">Wygrana 1</th>
+          <th style ="width: 10%">Remis</th>
+          <th style ="width: 10%">Wygrana 2</th>
+          <th style ="width: 35%">Goście</th>
+          <th></th>
+        </tr>
+        {% for i in premier_league %}
+        <form action="/dodaj_mecz"  method="POST">
+            <tr>
+                <td>{{i.0}}</td>
+                <td>
+                  <label class="btn btn-warning">
+                    <input name ="typ" type ="radio" value = "1" required="required">{{i.1}}</input>
+                  </label>
+                </td>
+                <td>
+                  <label class="btn btn-warning">
+                    <input name ="typ" type ="radio" value = "0" required="required">{{i.2}}</input>
+                  </label>
+                </td>
+                <td>
+                  <label class="btn btn-warning">
+                    <input name ="typ" type ="radio" value = "2" required="required">{{i.3}}</input>
+                  </label>
+                </td>
+                <td>{{i.4}}</td>
+                <td><button name = 'meczid' class="btn btn-primary" value = "{{i.5}}">Dodaj</button></td>
+            </tr>
+          </form>
+        {% endfor %}
+      </table>
+      <header style="text-align: center; margin:auto; font-size: large; font-weight: bold;">La liga</header>
+      <table class = "table table-striped" id = "kupon">
+        <tr>
+            <th style ="width: 35%">Gospodarze</th>
+            <th style ="width: 10%">Wygrana 1</th>
+            <th style ="width: 10%">Remis</th>
+            <th style ="width: 10%">Wygrana 2</th>
+            <th style ="width: 35%">Goście</th>
+            <th></th>
+        </tr>
+        {% for i in la_liga %}
+        <form action="/dodaj_mecz"  method="POST">
+          <tr>
+            <td>{{i.0}}</td>
+            <td>
+              <label class="btn btn-warning">
+                <input name ="typ" type ="radio" value = "1" required="required">{{i.1}}</input>
+              </label>
+            </td>
+            <td>
+              <label class="btn btn-warning">
+                <input name ="typ" type ="radio" value = "0" required="required">{{i.2}}</input>
+              </label>
+            </td>
+            <td>
+              <label class="btn btn-warning">
+                <input name ="typ" type ="radio" value = "2" required="required">{{i.3}}</input>
+              </label>
+            </td>
+            <td>{{i.4}}</td>
+            <td><button name = 'meczid' class="btn btn-primary" value = "{{i.5}}">Dodaj</button></td>
+        </tr>
+          </form>
+        {% endfor %}
+      </table>
+    
+      <header style="text-align: center; margin:auto; font-size: large; font-weight: bold;">Serie A</header>
+      <table class = "table table-striped" id = "kupon">
+        <tr>
+            <th style ="width: 35%">Gospodarze</th>
+            <th style ="width: 10%">Wygrana 1</th>
+            <th style ="width: 10%">Remis</th>
+            <th style ="width: 10%">Wygrana 2</th>
+            <th style ="width: 35%">Goście</th>
+            <th></th>
+        </tr>
+        {% for i in serie_a %}
+        <form action="/dodaj_mecz"  method="POST">
+          <tr>
+            <td>{{i.0}}</td>
+            <td>
+              <label class="btn btn-warning">
+                <input name ="typ" type ="radio" value = "1" required="required">{{i.1}}</input>
+              </label>
+            </td>
+            <td>
+              <label class="btn btn-warning">
+                <input name ="typ" type ="radio" value = "0" required="required">{{i.2}}</input>
+              </label>
+            </td>
+            <td>
+              <label class="btn btn-warning">
+                <input name ="typ" type ="radio" value = "2" required="required">{{i.3}}</input>
+              </label>
+            </td>
+            <td>{{i.4}}</td>
+            <td><button name = 'meczid' class="btn btn-primary" value = "{{i.5}}">Dodaj</button></td>
+            </tr>
+          </form>
+        {% endfor %}
+      </table>
+    
+     </div>
+    
+     <div id = "kuponRight">
+        <p style="color: red; font-weight: bold; margin-top: 10px;">UWAGA! Po naciśnięciu 'symuluj kolejkę' kupon zostanie automatycznie zatwierdzony</p>
+        <h3> <i class="fas fa-user"></i>  {{session.username}} </h3>
+    <h3>Punkty: {{liczba_pkt}}</h3>
+    <br>
+         <h3>Twój kupon: </h3>
+         <table class="table table-striped" style="width: 90%;">
+        <tr>
+            <th style="width: 35%">Drużyna 1</th>
+            <th style="width: 35%">Drużyna 2</th>
+            <th style="width: 15%">Wybór</th>
+            <th style = "width: 15%;"></th>
+        </tr>
+        {% for i in kupon %}
+        <form action="/usun_mecz/{{i.3}}">
+        <tr>
+          <td>{{i.0}}</td>
+          <td>{{i.1}}</td>
+          <td>{{i.2}}</td>
+          <td>
+            <button type = "submit" class="btn btn-danger" name = 'idmeczu' value = "{{i.3}}">Usuń</button>
+          </td>
+        </tr>
+        </form>
+        {%endfor%}
+     </table>
+
+     <h3>Maksymalna wygrana: {{max_wygrana}}</h3>
+     </div>
+
+     
+</div>
+
+  
+  
+{% endblock %}

@@ -1,8 +1,8 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'thisissupposedtobesecret'
 Bootstrap(app)
+app.config['SECRET_KEY'] = 'klucz'
 
-from app import views
+from app import routes

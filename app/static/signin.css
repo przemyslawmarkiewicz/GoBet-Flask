@@ -1,7 +1,49 @@
 body {
     padding-top: 40px;
     padding-bottom: 40px;
-    background:  #7395AE;
+    background:  white;
+    color: black;
+    font-family: 'Quicksand', sans-serif;
+  }
+
+
+  .navbar-inverse{
+    background-color: #1976D2;
+    border: none;
+}
+
+
+
+#navbar{
+  font-family: 'Acme', sans-serif;
+  text-transform: uppercase;
+}
+
+#betLogo{
+  font-weight: bold;
+  color:#BF360C;
+  margin-right: 100px;
+  text-align: left;
+  font-size: 45px;
+  font-family: 'Acme', sans-serif;
+  padding-left: 7px;
+}
+
+#goLogo{
+  font-weight: bold;
+  color: white; 
+  text-align: right;
+  font-size: 45px;
+  font-family: 'Acme', sans-serif;
+  padding-right: 7px;    
+}
+
+.goBetDiv{
+  margin-right: 100px;
+}
+
+  h2{
+   text-align: center;
   }
   
   .form-signin {
